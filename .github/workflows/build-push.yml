@@ -57,6 +57,6 @@ jobs:
           export CURRENT_BRANCH=${GITHUB_REF#refs/heads/}
           export CURRENT_BRANCH=${CURRENT_BRANCH#refs/tags/}
           export TAG=$([[ $CURRENT_BRANCH == "master" ]] && echo "latest" || echo $CURRENT_BRANCH)
-          export GITHUB_BRANCH_IMAGE=ghcr.io/jan-herzog/CSGODatabase-docker:$TAG
+          export GITHUB_BRANCH_IMAGE=ghcr.io/jan-herzog/csgodatabase-docker:$TAG
           docker build -t $GITHUB_BRANCH_IMAGE .
           docker push $GITHUB_BRANCH_IMAGE
