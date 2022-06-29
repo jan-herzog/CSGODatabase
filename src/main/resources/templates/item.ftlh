@@ -20,7 +20,7 @@
                         <div class="left">
                             <h3>${skin.name}</h3>
                             <p>Rarity: <a style="color: ${skin.color}">${skin.rarity}</a></p>
-                            <p>Chance: ${skin.dropRate}</p>
+                            <p>Chance: ${skin.dropRate}%</p>
                         </div>
                     </li>
                 </#list>
