@@ -33,9 +33,11 @@ public class ViewController {
             return "redirect:/";
         model.addAttribute("collection", collection.getName());
         List<SkinModel> skinModels = new ArrayList<>();
-        for (Skin skin : skinRepository.findByCollection(collection)) {
+        List<Skin> skins = skinRepository.findByCollection(collection);
+        for (Skin skin : skins) {
             DefaultDropRates drop = DefaultDropRates.getByName(skin.getRarity().getName());
-            skinModels.add(new SkinModel(skin.getName(), skin.getImage(), skin.getRarity().getName(), drop.getColor(), String.valueOf(drop.getRate())));
+            double rate = drop.getRate() / skins.stream().filter(s -> s.getRarity().equals(skin.getRarity())).count();
+            skinModels.add(new SkinModel(skin.getName(), skin.getImage(), skin.getRarity().getName(), drop.getColor(), String.valueOf(rate)));
         }
         model.addAttribute("skins", skinModels);
         return "item";
@@ -49,9 +51,11 @@ public class ViewController {
             return "redirect:/";
         model.addAttribute("collection", crate.getName());
         List<SkinModel> skinModels = new ArrayList<>();
-        for (Skin skin : skinRepository.findByCrate(crate)) {
+        List<Skin> skins = skinRepository.findByCrate(crate);
+        for (Skin skin : skins) {
             DefaultDropRates drop = DefaultDropRates.getByName(skin.getRarity().getName());
-            skinModels.add(new SkinModel(skin.getName(), skin.getImage() == null ? "/missing.png" : skin.getImage(), skin.getRarity().getName(), drop.getColor(), String.valueOf(drop.getRate())));
+            double rate = drop.getRate() / skins.stream().filter(s -> s.getRarity().equals(skin.getRarity())).count();
+            skinModels.add(new SkinModel(skin.getName(), skin.getImage() == null ? "/missing.png" : skin.getImage(), skin.getRarity().getName(), drop.getColor(), String.valueOf(rate)));
         }
         model.addAttribute("skins", skinModels);
         return "item";
