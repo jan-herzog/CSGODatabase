@@ -29,14 +29,16 @@ public class ViewController {
     @GetMapping("/collections/{tag}")
     public String viewCollection(@PathVariable String tag, Model model) {
         Collection collection = getCollectionbyTag(tag);
-        if(collection == null)
+        if (collection == null) {
+            System.out.println("no exact mapping for tag: " + tag);
             return "redirect:/";
+        }
         model.addAttribute("collection", collection.getName());
         List<SkinModel> skinModels = new ArrayList<>();
         List<Skin> skins = skinRepository.findByCollection(collection);
         for (Skin skin : skins) {
             DefaultDropRates drop = DefaultDropRates.getByName(skin.getRarity().getName());
-            double rate = drop.getRate() / skins.stream().filter(s -> s.getRarity().equals(skin.getRarity())).count();
+            double rate = drop.getRate() / skins.stream().filter(s -> DefaultDropRates.getByName(s.getRarity().getName()).equals(drop)).count();
             System.out.println(rate);
             skinModels.add(new SkinModel(skin.getName(), skin.getImage(), skin.getRarity().getName(), drop.getColor(), String.valueOf(rate)));
         }
@@ -48,14 +50,16 @@ public class ViewController {
     @GetMapping("/cases/{tag}")
     public String viewCase(@PathVariable String tag, Model model) {
         Crate crate = getCaseByTag(tag);
-        if(crate == null)
+        if (crate == null) {
+            System.out.println("no exact mapping for tag: " + tag);
             return "redirect:/";
+        }
         model.addAttribute("collection", crate.getName());
         List<SkinModel> skinModels = new ArrayList<>();
         List<Skin> skins = skinRepository.findByCrate(crate);
         for (Skin skin : skins) {
             DefaultDropRates drop = DefaultDropRates.getByName(skin.getRarity().getName());
-            double rate = drop.getRate() / skins.stream().filter(s -> s.getRarity().equals(skin.getRarity())).count();
+            double rate = drop.getRate() / skins.stream().filter(s -> DefaultDropRates.getByName(s.getRarity().getName()).equals(drop)).count();
             skinModels.add(new SkinModel(skin.getName(), skin.getImage() == null ? "/missing.png" : skin.getImage(), skin.getRarity().getName(), drop.getColor(), String.valueOf(rate)));
         }
         model.addAttribute("skins", skinModels);
@@ -73,7 +77,7 @@ public class ViewController {
 
     public Collection getCollectionbyTag(String tag) {
         for (Collection collection : collectionRepository.findAll()) {
-            String crateTag = collection.getName().toLowerCase().replace(" ", "_").replace("the_", "").replace(".", "").replace("&_", "").replace(":","");
+            String crateTag = collection.getName().toLowerCase().replace(" ", "_").replace("the_", "").replace(".", "").replace("&_", "").replace(":", "");
             if (crateTag.equals(tag))
                 return collection;
         }
