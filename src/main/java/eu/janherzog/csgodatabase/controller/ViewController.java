@@ -37,6 +37,7 @@ public class ViewController {
         for (Skin skin : skins) {
             DefaultDropRates drop = DefaultDropRates.getByName(skin.getRarity().getName());
             double rate = drop.getRate() / skins.stream().filter(s -> s.getRarity().equals(skin.getRarity())).count();
+            System.out.println(rate);
             skinModels.add(new SkinModel(skin.getName(), skin.getImage(), skin.getRarity().getName(), drop.getColor(), String.valueOf(rate)));
         }
         model.addAttribute("skins", skinModels);
@@ -72,7 +73,7 @@ public class ViewController {
 
     public Collection getCollectionbyTag(String tag) {
         for (Collection collection : collectionRepository.findAll()) {
-            String crateTag = collection.getName().toLowerCase().replace(" ", "_").replace("the_", "").replace(".", "").replace("&_", "");
+            String crateTag = collection.getName().toLowerCase().replace(" ", "_").replace("the_", "").replace(".", "").replace("&_", "").replace(":","");
             if (crateTag.equals(tag))
                 return collection;
         }
