@@ -21,6 +21,7 @@
                             <h3>${skin.name}</h3>
                             <p>Rarity: <a style="color: ${skin.color}">${skin.rarity}</a></p>
                             <p>Chance: ${skin.dropRate}%</p>
+                            <p>${skin.lore}</p>
                         </div>
                     </li>
                 </#list>

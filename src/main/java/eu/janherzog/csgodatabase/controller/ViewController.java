@@ -39,7 +39,7 @@ public class ViewController {
         for (Skin skin : skins) {
             DefaultDropRates drop = DefaultDropRates.getByName(skin.getRarity().getName());
             double rate = drop.getRate() / skins.stream().filter(s -> DefaultDropRates.getByName(s.getRarity().getName()).equals(drop)).count();
-            skinModels.add(new SkinModel(skin.getName(), skin.getImage(), skin.getRarity().getName(), drop.getColor(), String.valueOf(Math.round(rate * 100.0) / 100.0)));
+            skinModels.add(new SkinModel(skin.getName(), skin.getImage(), skin.getRarity().getName(), drop.getColor(), String.valueOf(Math.round(rate * 100.0) / 100.0), skin.getLore()));
         }
         model.addAttribute("skins", skinModels);
         return "item";
@@ -59,7 +59,7 @@ public class ViewController {
         for (Skin skin : skins) {
             DefaultDropRates drop = DefaultDropRates.getByName(skin.getRarity().getName());
             double rate = drop.getRate() / skins.stream().filter(s -> DefaultDropRates.getByName(s.getRarity().getName()).equals(drop)).count();
-            skinModels.add(new SkinModel(skin.getName(), skin.getImage() == null ? "/missing.png" : skin.getImage(), skin.getRarity().getName(), drop.getColor(), String.valueOf(Math.round(rate * 100.0) / 100.0)));
+            skinModels.add(new SkinModel(skin.getName(), skin.getImage() == null ? "/missing.png" : skin.getImage(), skin.getRarity().getName(), drop.getColor(), String.valueOf(Math.round(rate * 100.0) / 100.0), skin.getLore()));
         }
         model.addAttribute("skins", skinModels);
         return "item";

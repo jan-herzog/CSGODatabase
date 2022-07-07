@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class SkinModel {
 
-    public String name, image, rarity, color, dropRate;
+    public String name, image, rarity, color, dropRate, lore;
 
 }
