@@ -30,6 +30,8 @@
             <a href="/cases/operation_hydra_case" class="btn-hover fill color-3">Operation Hydra Case</a>
             <a href="/cases/spectrum_case" class="btn-hover fill color-4">Spectrum Case</a>
             <a href="/cases/glove_case" class="btn-hover fill color-5">Glove Case</a>
+            <a href="/cases/operation_breakout_weapon_case" class="btn-hover fill color-6">Operation Breakout Weapon
+                Case</a>
             <a href="/cases/gamma_2_case" class="btn-hover fill color-6">Gamma 2 Case</a>
             <a href="/cases/gamma_case" class="btn-hover fill color-7">Gamma Case</a>
             <a href="/cases/chroma_3_case" class="btn-hover fill color-8">Chroma 3 Case</a>
